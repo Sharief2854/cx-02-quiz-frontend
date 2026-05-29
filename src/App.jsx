@@ -10,6 +10,8 @@ import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminTrainers from './pages/admin/AdminTrainers'
 import { Provider } from 'react-redux'
 import store from './store/store'
+import TrainerDashboard from './pages/trainer/TrainerDashboard'
+import Questions from './pages/trainer/Questions'
 function App() {
   return (
     <div>
@@ -35,6 +37,10 @@ function App() {
 
 
             </Route>
+
+          <Route path='/trainer' element={<TrainerDashboard />} />
+          <Route path='/trainer/questions/:id' element={<Questions />} />
+
         </Routes>
       </BrowserRouter>
     </div>
