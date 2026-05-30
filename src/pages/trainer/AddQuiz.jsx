@@ -9,13 +9,15 @@ function AddQuiz() {
     const[name,setName]=useState("");
     const[desc,setDesc]=useState("");
     const[code,setCode]=useState("");
+    const[duration,setDuration]=useState(0);
+
 
 
 
     async function handleSubmit(){
         // validations
         let obj={
-            name,desc,code
+            name,desc,code,duration
         }
 
         await axios.post("http://localhost:5000/quiz/add",obj,{
@@ -44,6 +46,12 @@ function AddQuiz() {
               onChange={(e) => setDesc(e.target.value)}
 
         />
+          <TextBox
+              placeholder='Duration in min'
+              onChange={(e) => setDuration(e.target.value)}
+              type="number"
+
+          />
         <TextBox
             placeholder='Code'
               onChange={(e) => setCode(e.target.value)}

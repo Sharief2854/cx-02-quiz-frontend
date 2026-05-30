@@ -24,6 +24,7 @@ function AllQuizes() {
                 <td>{item.name}</td>
                 <td>{item.desc}</td>
                 <td>{item.code}</td>
+                <td>{item.duration} min</td>
                 <td>
                     <button>Edit</button>
                     <button>Delete</button>
@@ -43,13 +44,14 @@ function AllQuizes() {
     },[]);
   return (
     <div>
-        <h1>All Trainers</h1>
+        <h1>All Quizes</h1>
         <table border="1px">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Desc</th>
                     <th>Code</th>
+                    <th>Duration</th>
                 </tr>
             </thead>
             <tbody>

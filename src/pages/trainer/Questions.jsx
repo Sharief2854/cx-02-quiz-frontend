@@ -1,4 +1,4 @@
-import { Box, Divider, Typography } from '@mui/material'
+import { Box, Divider, Stack, Typography } from '@mui/material'
 import React, { use, useEffect, useState } from 'react'
 import { GlassyCard } from '../../components/styledComponents/GlassyCard'
 import { TextBox } from '../../components/styledComponents/TextBox'
@@ -17,6 +17,9 @@ function Questions() {
 
     const[quiz,setQuiz]=useState({});
     const[allQuestions,setAllQuestions]=useState([]);
+
+    const[isPublished,setPublished]=useState(false);
+
 
 
     const{id}=useParams();
@@ -48,6 +51,7 @@ function Questions() {
         })
         console.log(response.data);
         setQuiz(response.data);
+        setPublished(response.data.isPublished);
     }
 
     async function getAllQuestions(){
@@ -81,6 +85,25 @@ function Questions() {
         )
     })
 
+    async function handlePublish(){
+       try{
+           await axios.put(`http://localhost:5000/quiz/publish/${id}`, {
+               isPublished: !isPublished
+           }, {
+               headers: {
+                   Authorization: `Bearer ${localStorage.getItem("token")}`
+               }
+           })
+
+           isPublished ? alert("unpublished") : alert("published");
+           setPublished(!isPublished);
+           // getQuiz();
+       }
+       catch(err){
+           console.log(err.response.data);
+           alert(err.response.data);
+       }
+    }
 
 
     useEffect(()=>{
@@ -91,9 +114,20 @@ function Questions() {
     
   return (
     <Box>
-        <Typography variant="h5" color="initial">
-            {quiz.name}
-        </Typography>
+        <Stack
+            direction="row"
+            spacing={2}
+        >
+              <Typography variant="h5" color="initial">
+                  {quiz.name} ({quiz.duration} min)
+              </Typography>
+              <PrimaryButton
+                onClick={handlePublish}
+              >
+                {isPublished?"Unpublish":"Publish"}
+              </PrimaryButton>
+        </Stack>
+
         <Typography variant="body" color="initial">
             {quiz.desc}
         </Typography>
@@ -148,7 +182,6 @@ function Questions() {
                 
                 {result}
           </Box>
-
 
     </Box>
   )
