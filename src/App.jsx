@@ -13,6 +13,7 @@ import store from './store/store'
 import TrainerDashboard from './pages/trainer/TrainerDashboard'
 import Questions from './pages/trainer/Questions'
 import StudentDashboard from './pages/student/StudentDashboard'
+import QuizPage from './pages/student/QuizPage'
 function App() {
   return (
     <div>
@@ -42,7 +43,15 @@ function App() {
           <Route path='/trainer' element={<TrainerDashboard />} />
           <Route path='/trainer/questions/:id' element={<Questions />} />
 
-          <Route path='/student' element={<StudentDashboard />} />
+          <Route path='/student' element={
+            <Provider store={store}>
+              <StudentDashboard />
+            </Provider>}  />
+          <Route path='/quizPage' element={<Provider store={store}>
+            <QuizPage />
+          </Provider>} />
+            
+
 
 
         </Routes>

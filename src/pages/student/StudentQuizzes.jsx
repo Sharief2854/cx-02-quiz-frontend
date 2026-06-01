@@ -1,9 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import Code from './Code';
 
 function StudentQuizzes() {
 
     const[quizzes,setQuizzes]=useState([]);
+    const[displayCode,setDisplayCode]=useState(false);
+    const [selectedQuiz, setselectedQuiz]=useState("");
 
 
     async function getAllQuizzes(){
@@ -16,6 +19,8 @@ function StudentQuizzes() {
         setQuizzes(response.data);
     }
 
+   
+
     let result=quizzes.map((item,ind)=>{
         return(
             <tr key={item._id}>
@@ -24,7 +29,14 @@ function StudentQuizzes() {
                 <td>{item.duration}</td>
                 <td>{item.trainer.name}</td>
                 <td>
-                        <button>Start</button>
+                        <button onClick={()=>{
+                            setDisplayCode(true)
+                            setselectedQuiz(item._id)
+                        
+                        }
+                        }>
+                            Start
+                        </button>
                 </td>
             </tr>
         )
@@ -35,6 +47,13 @@ function StudentQuizzes() {
     useEffect(()=>{
         getAllQuizzes();
     },[]);
+
+
+    if(displayCode==true){
+        return(
+            <Code quizId={selectedQuiz}/>
+        )
+    }
   return (
     <div>
         <h1>All Quizzes</h1>
