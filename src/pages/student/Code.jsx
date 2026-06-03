@@ -25,6 +25,7 @@ function Code({quizId}) {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
         })
+        localStorage.setItem("attemptId",response.data.attemptId);
         console.log(response.data);
         dispatch(setData(response.data))
         navigate("/quizPage");

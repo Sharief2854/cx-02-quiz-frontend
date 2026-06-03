@@ -32,6 +32,7 @@ function StudentQuizzes() {
                         <button onClick={()=>{
                             setDisplayCode(true)
                             setselectedQuiz(item._id)
+                            localStorage.setItem("quizId",item._id)
                         
                         }
                         }>
